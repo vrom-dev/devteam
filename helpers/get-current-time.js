@@ -1,5 +1,5 @@
-async function getCurrentTime() {
-  try {
+function getCurrentTime() {
+ 
     const ts = Date.now();
     const date = new Date(ts);
     const year = date.getFullYear();
@@ -8,18 +8,10 @@ async function getCurrentTime() {
     const day = date.getDate();
     const seconds = date.getSeconds();
     const month = date.getMonth() + 1;
-    const pretty = `${hour}:${minutes}:${seconds} ${day}-${month}-${year}`;
-    const easyDate = {
-      pretty,
-      hour,
-      minutes,
-      day,
-      month
-    }
+    const easyDate = `${hour}:${minutes}:${seconds} ${day}-${month}-${year}`;
+    
     return easyDate;
-  } catch (err) {
-    return err.message;
-  }
+
 }
 
 module.exports = getCurrentTime;

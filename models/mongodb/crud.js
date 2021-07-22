@@ -1,5 +1,5 @@
 const { connect, connection } = require('mongoose')
-const Task = require('task')
+const Task = require('./task')
 
 const mongoUrl = 'mongodb://localhost:27017/devteam'
 
@@ -64,7 +64,7 @@ const deleteOne = async (id) => {
     await connect(mongoUrl, config)
     await Task.findByIdAndDelete(id)
     connection.close()
-    return true
+    return { status: 'OK', deleted: true }
   } catch (e) {
     connection.close()
     return e._message

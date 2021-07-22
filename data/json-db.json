@@ -91,8 +91,16 @@
     "id": "4c40910e-aa01-44b8-9680-bdcd78a9ce56",
     "user": "Estafilococos",
     "description": "KISS",
-    "status": "Marilyn Manson",
+    "status": "Nothing New in the Front",
     "createAt": "11:28:21 22-7-2021",
+    "endedAt": "11:34:36 22-7-2021"
+  },
+  {
+    "id": "b10d1960-179b-44e4-857c-5da2afd27d8d",
+    "user": "Hello Dolly",
+    "description": "My Wordpress Website",
+    "status": "Bored",
+    "createAt": "11:34:36 22-7-2021",
     "endedAt": null
   }
 ]

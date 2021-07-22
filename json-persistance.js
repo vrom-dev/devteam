@@ -38,23 +38,9 @@ async function findOne(id){
 async function update(id, status) {
     const db = await findAll();
     const userPosition = db.findIndex(user => user.id === id);
+    const { pretty: date} = await getCurrentTime();
     db[userPosition].status = status;
+    db[userPosition].endedAt = date;
     await writeFile(path.join(__dirname, "./data/json-db.json"), JSON.stringify(db));
-
-    
 }
 
-
-
-/*
-
---create  
-        --update  (status)
-        --findOne
-        --findAll
-        --delete
-
-
-pending, executing, completed
-
-*/

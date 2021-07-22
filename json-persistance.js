@@ -22,3 +22,19 @@ async function create(user, description, status = "pending") {
         console.log(err.message);
     }       
 }
+
+
+async function findAll(){
+    const db = await readFile(path.join(__dirname, "./data/json-db.json"));
+    return JSON.parse(db);
+}
+
+async function findOne(id){
+    const db = await findAll();
+   const user = db.find(e => e.id === id);
+   return user
+}
+let miId = "255320ea-58d4-4337-9017-3e9f408cca55"
+// init()
+create("Mary", "Bishop");
+findOne(miId);

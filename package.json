@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/vrom-dev/devteam/issues"
   },
-  "homepage": "https://github.com/vrom-dev/devteam#readme"
+  "homepage": "https://github.com/vrom-dev/devteam#readme",
+  "dependencies": {
+    "mongoose": "5.13.3"
+  }
 }

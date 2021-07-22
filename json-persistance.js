@@ -34,7 +34,27 @@ async function findOne(id){
    const user = db.find(e => e.id === id);
    return user
 }
-let miId = "255320ea-58d4-4337-9017-3e9f408cca55"
-// init()
-create("Mary", "Bishop");
-findOne(miId);
+
+async function update(id, status) {
+    const db = await findAll();
+    const userPosition = db.findIndex(user => user.id === id);
+    db[userPosition].status = status;
+    await writeFile(path.join(__dirname, "./data/json-db.json"), JSON.stringify(db));
+
+    
+}
+
+
+
+/*
+
+--create  
+        --update  (status)
+        --findOne
+        --findAll
+        --delete
+
+
+pending, executing, completed
+
+*/

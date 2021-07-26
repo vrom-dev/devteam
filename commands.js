@@ -9,7 +9,7 @@ const {
     findOne,
     findAll,
     deleteOne
-} = require('./crud');
+} = require('./models/sql/crud');
 
 
 const questions = [

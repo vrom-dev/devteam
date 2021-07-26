@@ -3,7 +3,7 @@ const sequelize = new Sequelize('demo', 'root', '1234', {
     dialect: 'mysql'
 })
 //Importing the model
-const Task = require('./task')
+const Task = require('./Task')
 
 // CRUD functions
 const create = (task)=> {

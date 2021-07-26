@@ -20,9 +20,9 @@ async function findAll() {
 }
 
 
-async function create(user, description, status = "pending") {
+async function create(user, description, status = "pending", createAt) {
   try {
-    const task = new Task(user, description, status);
+    const task = new Task(user, description, status, createAt);
     const dbAsArray = await findAll();
     dbAsArray.push(task);
     await write(dbAsArray);

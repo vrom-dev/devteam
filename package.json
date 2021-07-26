@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/vrom-dev/devteam/issues"
   },
-  "homepage": "https://github.com/vrom-dev/devteam#readme"
+  "homepage": "https://github.com/vrom-dev/devteam#readme",
+  "dependencies": {
+    "commander": "^8.0.0",
+    "inquirer": "^8.1.2",
+    "mysql2": "^2.2.5",
+    "sequelize": "^6.6.5"
+  }
+
 }

@@ -3,12 +3,12 @@ const getCurrentTime = require("../../helpers/get-current-time");
 const { InvalidTypeError, MustHaveValueError } = require("../../helpers/errors")
 
 class Task {
-    constructor(user, description, status, createAt, endedAt = null){
+    constructor(user, description, status, createAt = null, endedAt = null){
         this.id = uuidv4();
         this.user = this.validate(user);
         this.description = this.validate(description);
         this.status = this.validate(status);
-        this.createAt = getCurrentTime();
+        this.createAt = createAt;
         this.endedAt = endedAt;
     }
 

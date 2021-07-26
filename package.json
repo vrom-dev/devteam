@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node ./json-persistance.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,9 @@
   "bugs": {
     "url": "https://github.com/vrom-dev/devteam/issues"
   },
-  "homepage": "https://github.com/vrom-dev/devteam#readme"
+  "homepage": "https://github.com/vrom-dev/devteam#readme",
+  "dependencies": {
+    "uuid": "^8.3.2",
+    "mongoose": "5.13.3"
+  }
 }

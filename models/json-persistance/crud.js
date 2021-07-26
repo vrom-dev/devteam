@@ -43,12 +43,12 @@ async function findOne(id) {
   }
 }
 
-async function update(id, status) {
+async function update(id, status, endedAt) {
   try {
     const dbAsArray = await findAll();
     const userPosition = dbAsArray.findIndex((user) => user.id === id);
     dbAsArray[userPosition].status = status;
-    dbAsArray[userPosition].endedAt = getCurrentTime();
+    dbAsArray[userPosition].endedAt = endedAt;
     await write(dbAsArray);
     return dbAsArray;
   } catch (err) {

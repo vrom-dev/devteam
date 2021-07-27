@@ -1,44 +1,15 @@
 #!/usr/bin/env node
-
 const program = require('commander')
-const { prompt } = require('inquirer');
+
+require('dotenv').config()
+const { BBDD } = process.env
+const { create, findOne, findAll, update, deleteOne } = require('./init')[BBDD]
+
+const inquirer = require('inquirer')
+inquirer.registerPrompt("date", require("inquirer-date-prompt"))
+
 const Choices = require('inquirer/lib/objects/choices');
-const {
-    create,
-    update,
-    findOne,
-    findAll,
-    deleteOne
-} = require('./models/sql/crud');
 
-
-const questions = [
-    {
-        type: 'input',
-        name: 'user', 
-        message: 'User name'
-    },
-    {
-        type: 'input',
-        name: 'description',
-        message: 'Description'
-    },
-    {
-        type: 'input',
-        name: 'status',
-        message: 'Status'
-    },
-   
-]
-
-
-const updatingQuestion = [
-    {
-        type: 'input',
-        name: 'status',
-        message: 'New status'
-    }
-]
 
 program
     .version('1.0.0')
@@ -49,8 +20,39 @@ program
     .command('create')
     .alias('c')
     .description('add todo task')
-    .action(()=>{
-        prompt(questions).then(answers => create(answers))
+    .action(() => {
+        const createQuestions = [
+            {
+              type: 'input',
+              name: 'user',
+              message: 'User:'
+            },
+            {
+              type: 'list',
+              name: 'status',
+              message: 'Status:',
+              choices: ['completed', 'pending', 'executing']
+            },
+            {
+              type: 'date',
+              name: 'createdAt',
+              message: 'Created:'
+            }
+        ]
+        
+        const completedQuestion = {
+            type: 'date',
+            name: 'endedAt',
+            message: 'Ended at:'
+        }
+        
+        const prompt1 = await inquirer.prompt(createQuestions)
+
+        if (prompt1.status === 'completed') {
+          var prompt2 = await inquirer.prompt(completedQuestion)
+        }
+
+        create({...prompt1, ...prompt2})
     })
 
 //update OK
@@ -58,8 +60,26 @@ program
     .command('update <id>')
     .alias('u')
     .description('update task')
-    .action(id=>{
-        prompt(updatingQuestion).then(answer => update(id, answer))
+    .action(() => {
+        const taskArray = await findAll()
+        const questions = [
+          {
+          type: 'list',
+          name: 'id',
+          message: 'Choose task to update:',
+          choices: taskArray.map(task => {
+            return {name: task.description, value: task.id}
+          })
+          },
+          {
+            type: 'list',
+            name: 'status',
+            message: 'New status:',
+            choices: ['completed', 'pending', 'executing']
+          }
+        ]
+        const answers = await inquirer.prompt(questions)
+        update(answers)
     })    
 
 //find one OK
@@ -67,7 +87,21 @@ program
     .command('find <id>')    
     .alias('f')
     .description('find task')
-    .action(id => findOne(id))
+    .action(id => {
+        const taskArray = await findAll()
+        const question = [
+      {
+      type: 'list',
+      name: 'id',
+      message: 'Choose task to find:',
+      choices: taskArray.map(task => {
+        return {name: task.description, value: task.id}
+      })
+      }];
+      const answer = await inquirer.prompt(question);
+      findOne(answer);
+    })
+      
 
 //find all OK
 program
@@ -77,13 +111,25 @@ program
     .action(() => findAll())
 
 
-//delete one
+//delete one OK
 program
     .command('delete <id>')    
     .alias('r')
     .description('remove task')
-    .action(id => deleteOne(id))
-
-
+    .action(() => {
+        const taskArray = await findAll()
+        const question = [
+          {
+          type: 'list',
+          name: 'id',
+          message: 'Choose task to update:',
+          choices: taskArray.map(task => {
+            return {name: task.description, value: task.id}
+          })
+          }
+        ]
+        const answer = await inquirer.prompt(question)
+        deleteOne(answer)
+    })
 
 program.parse(process.argv);

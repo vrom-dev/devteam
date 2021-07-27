@@ -43,7 +43,7 @@ async function findOne(id) {
   }
 }
 
-async function update(id, status, endedAt) {
+async function update({ id, status, endedAt }) {
   try {
     const dbAsArray = await findAll();
     const userPosition = dbAsArray.findIndex((user) => user.id === id);

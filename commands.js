@@ -115,7 +115,10 @@ program
     .command('list')    
     .alias('l')
     .description('list all task')
-    .action(() => findAll())
+    .action(async () => {
+      const tasks = await findAll()
+      tasks.forEach(task => console.log(task))
+    })
 
 
 //delete one OK
@@ -129,14 +132,15 @@ program
           {
           type: 'list',
           name: 'id',
-          message: 'Choose task to update:',
+          message: 'Choose task to delete:',
           choices: taskArray.map(task => {
             return {name: task.description, value: task.id}
           })
           }
         ]
         const answer = await inquirer.prompt(question)
-        deleteOne(answer)
+        await deleteOne(answer)
+        console.log('Task deleted!')
     })
 
 program.parse(process.argv);

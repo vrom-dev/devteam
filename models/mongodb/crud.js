@@ -46,11 +46,12 @@ const findOne = async ({ id }) => {
     return e._message
   }
 }
-//*TODO ADD UPDATE DATE
+
 const update = async ({ id, status }) => {
   try {
     await connect(mongoUrl, config)
-    const task = await Task.findByIdAndUpdate(id, { status }, { new: true })
+    const newData = status === 'completed' ? { status, endedAt: new Date() } : { status, endedAt: null }
+    const task = await Task.findByIdAndUpdate(id, newData, { new: true })
     connection.close()
     return task.toJSON()
   } catch (e) {

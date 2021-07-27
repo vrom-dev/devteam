@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "preferGlobal": true,
+  "bin": "./commands.js",
   "scripts": {
     "start": "node ./json-persistance.js",
     "test": "echo \"Error: no test specified\" && exit 1"

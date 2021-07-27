@@ -46,10 +46,7 @@ con.connect(function(err) {
              status: {
                type: DataTypes.STRING,
                allowNull: false,
-               required: true,
-               validate: {
-                   isIn:['pending', 'executing', 'complete']
-                   }
+               required: true
              },
              endedAt: {
                type: DataTypes.DATE

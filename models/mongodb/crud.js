@@ -35,7 +35,7 @@ const findAll = async () => {
   }
 }
 
-const findOne = async (id) => {
+const findOne = async ({ id }) => {
   try {
     await connect(mongoUrl, config)
     const task = await Task.findById(id)
@@ -47,10 +47,11 @@ const findOne = async (id) => {
   }
 }
 
-const update = async (id, newStatus) => {
+const update = async ({ id, status }) => {
   try {
     await connect(mongoUrl, config)
-    const task = await Task.findByIdAndUpdate(id, { status: newStatus }, { new: true })
+    const newData = status === 'completed' ? { status, endedAt: new Date() } : { status, endedAt: null }
+    const task = await Task.findByIdAndUpdate(id, newData, { new: true })
     connection.close()
     return task.toJSON()
   } catch (e) {
@@ -59,7 +60,7 @@ const update = async (id, newStatus) => {
   }
 }
 
-const deleteOne = async (id) => {
+const deleteOne = async ({ id }) => {
   try {
     await connect(mongoUrl, config)
     await Task.findByIdAndDelete(id)

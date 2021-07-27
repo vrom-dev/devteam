@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('demo', 'root', '1234', {
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 })
 //Importing the model
 const Task = require('./Task')
@@ -16,36 +17,42 @@ async function findAll (){
     if (tasks.length === 0){
         console.log('no tasks found')
     } else {
-    tasks.forEach(task=>console.log(task.dataValues))
-    sequelize.close()
+        const taskArray = []
+        tasks.forEach(task=>console.log(task.dataValues))
+        tasks.forEach(task=>taskArray.push(task.dataValues))
+        sequelize.close()
+        return taskArray
     }
 }
 
-async function findOne(id){
-    const task = await Task.findByPk(id)
+async function findOne(taskObj){
+    try {
+    const task = await Task.findByPk(taskObj.id)
     if (task===null) {
         console.log('task not found')
     } else {
-    console.log(task.dataValues)
-    sequelize.close()
+        const taskArray = []
+        taskArray.push(task.dataValues)
+        return taskArray 
     }
+    } catch(err){console.log(err)}
 }
 
-async function update(taskId, answer){
-    const task = await Task.findByPk(taskId)
+async function update(taskObj){
+    const task = await Task.findByPk(taskObj.id)
     if (task===null){
         console.log('task not found')
     } else {
-    const newStatus = answer.status
+    const newStatus = taskObj.status
     task.update({status: newStatus},
-    {where: {id: taskId}}
+    {where: {id: taskObj.id}}
     )
     console.log('task updated')
     }
 }
 
-async function deleteOne(taskId){
-    const task = await Task.findByPk(taskId)
+async function deleteOne(taskObj){
+    const task = await Task.findByPk(taskObj.id)
     if (task===null){
         console.log('task not found')
     } else {

@@ -31,7 +31,7 @@ const Task = sequelize.define('task', {
         allowNull: false,
         required: true,
         validate: {
-            isIn:[['pending', 'executing', 'complete']]
+            isIn:[['pending', 'executing', 'completed']]
         }
     }   
 }

@@ -8,9 +8,6 @@ const { create, findOne, findAll, update, deleteOne } = require('./init')[BBDD]
 const inquirer = require('inquirer')
 inquirer.registerPrompt("date", require("inquirer-date-prompt"))
 
-const Choices = require('inquirer/lib/objects/choices');
-
-
 program
     .version('1.0.0')
     .description('client management system')
@@ -20,12 +17,17 @@ program
     .command('create')
     .alias('c')
     .description('add todo task')
-    .action(() => {
+    .action(async () => {
         const createQuestions = [
             {
               type: 'input',
               name: 'user',
               message: 'User:'
+            },
+            {
+              type: 'input',
+              name: 'description',
+              message: 'Task description:'
             },
             {
               type: 'list',
@@ -57,10 +59,10 @@ program
 
 //update OK
 program
-    .command('update <id>')
+    .command('update')
     .alias('u')
     .description('update task')
-    .action(() => {
+    .action(async () => {
         const taskArray = await findAll()
         const questions = [
           {
@@ -84,10 +86,10 @@ program
 
 //find one OK
 program
-    .command('find <id>')    
+    .command('find')    
     .alias('f')
     .description('find task')
-    .action(id => {
+    .action( async () => {
         const taskArray = await findAll()
         const question = [
       {
@@ -113,10 +115,10 @@ program
 
 //delete one OK
 program
-    .command('delete <id>')    
+    .command('delete')    
     .alias('r')
     .description('remove task')
-    .action(() => {
+    .action(async () => {
         const taskArray = await findAll()
         const question = [
           {

@@ -20,7 +20,7 @@
   "homepage": "https://github.com/vrom-dev/devteam#readme",
   "dependencies": {
     "commander": "8.0.0",
-    "dotenv": "^10.0.0",
+    "dotenv": "10.0.0",
     "inquirer": "8.1.2",
     "inquirer-date-prompt": "2.0.1",
     "mongoose": "5.13.3",

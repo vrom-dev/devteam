@@ -20,7 +20,7 @@ async function findAll() {
 }
 
 
-async function create({user, description, status = "pending", createAt, endedAt}) {
+async function create({user, description, status = "pending", createAt = new Date(), endedAt}) {
   try {
     const task = new Task(user, description, status, createAt, endedAt);
     const dbAsArray = await findAll();
@@ -33,7 +33,7 @@ async function create({user, description, status = "pending", createAt, endedAt}
 }
 
 
-async function findOne({ id }) {
+async function findOne({id}) {
   try {
     const dbAsArray = await findAll();
     const user = dbAsArray.find((e) => e.id === id);
@@ -43,7 +43,7 @@ async function findOne({ id }) {
   }
 }
 
-async function update( id, status, endedAt ) {
+async function update({id, status, endedAt}) {
   try {
     const dbAsArray = await findAll();
     const userPosition = dbAsArray.findIndex((user) => user.id === id);

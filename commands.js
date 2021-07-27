@@ -82,10 +82,15 @@ program
             name: 'status',
             message: 'New status:',
             choices: ['completed', 'pending', 'executing']
+            
           }
         ]
         const answers = await inquirer.prompt(questions)
+        if(answers.status === "completed"){
+          answers.endedAt = new Date();
+        }
         update(answers)
+        console.log(answers)
     })    
 
 //find one OK
@@ -115,10 +120,10 @@ program
     .command('list')    
     .alias('l')
     .description('list all task')
-    .action(async () => {
-      const tasks = await findAll()
-      tasks.forEach(task => console.log(task))
-    })
+    .action( async () => {
+    console.log(await findAll())
+    }
+    )
 
 
 //delete one OK
@@ -128,6 +133,7 @@ program
     .description('remove task')
     .action(async () => {
         const taskArray = await findAll()
+        
         const question = [
           {
           type: 'list',

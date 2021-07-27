@@ -82,10 +82,15 @@ program
             name: 'status',
             message: 'New status:',
             choices: ['completed', 'pending', 'executing']
+            
           }
         ]
         const answers = await inquirer.prompt(questions)
+        if(answers.status === "completed"){
+          answers.endedAt = new Date();
+        }
         update(answers)
+        console.log(answers)
     })    
 
 //find one OK
@@ -115,7 +120,10 @@ program
     .command('list')    
     .alias('l')
     .description('list all task')
-    .action(() => findAll())
+    .action( async () => {
+    console.log(await findAll())
+    }
+    )
 
 
 //delete one OK
@@ -125,11 +133,12 @@ program
     .description('remove task')
     .action(async () => {
         const taskArray = await findAll()
+        
         const question = [
           {
           type: 'list',
           name: 'id',
-          message: 'Choose task to update:',
+          message: 'Choose task to delete:',
           choices: taskArray.map(task => {
             return {name: task.description, value: task.id}
           })
@@ -137,6 +146,7 @@ program
         ]
         const answer = await inquirer.prompt(question)
         deleteOne(answer)
+        console.log(answer);
     })
 
 program.parse(process.argv);

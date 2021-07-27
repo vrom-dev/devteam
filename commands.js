@@ -54,7 +54,11 @@ program
           var prompt2 = await inquirer.prompt(completedQuestion)
         }
 
-        create({...prompt1, ...prompt2})
+        const task = {...prompt1, ...prompt2}
+
+        await create(task)
+        console.log(task)
+        console.log('Task created!')
     })
 
 //update OK
@@ -101,7 +105,8 @@ program
       })
       }];
       const answer = await inquirer.prompt(question);
-      findOne(answer);
+      const task = await findOne(answer)
+      console.log(task)
     })
       
 

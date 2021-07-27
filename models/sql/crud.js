@@ -1,6 +1,9 @@
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('demo', 'root', '1234', {
-    dialect: 'mysql'
+
+const { user, password } = process.env
+const sequelize = new Sequelize('todo', user, password, {
+    dialect: 'mysql',
+    logging: false
 })
 //Importing the model
 const Task = require('./Task')

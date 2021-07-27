@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize')
 const sequelize = new Sequelize('demo', 'root', '1234', {
-    dialect: 'mysql'
+    dialect: 'mysql',
+    logging: false
 })
 
 

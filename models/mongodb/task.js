@@ -23,6 +23,7 @@ const taskSchema = new Schema({
   },
   endedAt: {
     type: Date,
+    default: null,
     required: [function() { return this.status === 'completed' }]
   }
 })

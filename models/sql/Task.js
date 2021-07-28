@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize')
-const sequelize = new Sequelize('demo', 'root', '1234', {
+
+const { user, password } = process.env
+const sequelize = new Sequelize('todo', user, password, {
     dialect: 'mysql',
     logging: false
 })
-
 
 const Task = sequelize.define('task', {
     id:{

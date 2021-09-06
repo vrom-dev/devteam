@@ -1,17 +1,18 @@
+require('dotenv').config()
+const { user, password } = process.env
 
 const { Sequelize, DataTypes } = require('sequelize');
-const sequelize = new Sequelize('demo', 'root', '1234', {
+
+const sequelize = new Sequelize('todo', user, password, {
     dialect: 'mysql'
 })
 const queryInterface = sequelize.getQueryInterface();
 const mysql2 = require('mysql2');
 
-
-
 var con = mysql2.createConnection({
   host: "localhost",
-  user: "root",
-  password: "1234"
+  user,
+  password
 });
 
 
@@ -19,7 +20,7 @@ var con = mysql2.createConnection({
 con.connect(function(err) {
   if (err) throw err;
   //console.log("Connected!");
-  con.query("CREATE DATABASE demo", function (err, result) {
+  con.query("CREATE DATABASE todo", function (err, result) {
     if (err) throw err;
     sequelize.sync({
       // force: true,

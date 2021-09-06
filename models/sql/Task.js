@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize')
-
+require('dotenv').config()
 const { user, password } = process.env
 const sequelize = new Sequelize('todo', user, password, {
     dialect: 'mysql',

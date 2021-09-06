@@ -15,7 +15,7 @@
 - Utilitzeu com a persistència Mysql
 
 ### Nivell 3
-- Utilitzeu com a persistència MongoDB
+- Utilitzeu com a persistència MongoDB.
 
 ## Instrucciones para iniciar programa
 
